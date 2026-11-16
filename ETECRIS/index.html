@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ETECRIS</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <img id="levelBoostButton" src="Fotinhas/esqueletofoda.gif">
+
+    <div class="main-container">
+        <img id="gameTitle" src="botoes/logo.png">
+        <div id="menuButtons">
+            <img id="startButton" src="botoes/iniciar_0.png">
+            <img id="creditsButton" src="botoes/creditos_0.png">
+        </div>
+
+
+
+        <div id="creditsScreen" style="display:none;">
+
+            <h2>Créditos dos Desenvolvedores</h2>
+            <h2>Essa Galerinha Bacana ai</h2>
+
+            <div id="creditsGrid">
+                <div class="credit-item">
+                    <img src="Fotinhas/AlanSantiagolegal.png">
+                    <span>Alan Santiago</span>
+                </div>
+
+                <div class="credit-item">
+                    <img src="Fotinhas/Juan_Rodrigues.png">
+                    <span>Juan Rodrigues</span>
+                </div>
+
+                <div class="credit-item">
+                    <img src="Fotinhas/Lucas_Dias_Rosa.png">
+                    <span>Lucas Dias</span>
+                </div>
+
+                <div class="credit-item">
+                    <img src="Fotinhas/Lucas_Marinho.png">
+                    <span>Lucas Marinho</span>
+                </div>
+
+                <div class="credit-item">
+                    <img src="Fotinhas/Nicollas_Pinheiro.png">
+                    <span>Nicollas Pinheiro</span>
+                </div>
+
+                <div class="credit-item">
+                    <img src="Fotinhas/alessandra.png">
+                    <span>Professora Alessandra</span>
+                </div>
+
+            </div>
+
+
+            <div id="otherCredits">
+                <h2>Músicas e Recursos</h2>
+                <h2>- Trilha Sonora -</h2>
+                <p>C418 - Dot Chase, Litter Jitter</p>
+                <p>Szymon227G - Beyond The Surface, Clocktower Mayhem, Follow The Lead, Action & Consequence</p>
+                <h2> - Recursos - </h2>
+            </div>
+
+            <img src="Fotinhas/voltar_0.png" id="backToMenu">
+        </div>
+
+
+        <div class="left-wrapper">
+
+            <!-- Painéis laterais à esquerda -->
+            <div class="side-container" id="sideContainer" style="display: none;">
+                <div class="side-box">
+                    <img id="side-img" src="Fotinhas/proxima.png">
+                    <canvas id="nextCanvas" width="120" height="120"></canvas>
+                </div>
+
+                <div class="side-box">
+                    <img id="side-img" src="Fotinhas/segurando_.png">
+                    <canvas id="holdCanvas" width="120" height="120"></canvas>
+                </div>
+            </div>
+
+
+            <div class="game-container" id="gameContainer" style="display:none;">
+                <canvas id="tetrisCanvas"></canvas>
+            </div>
+
+
+        </div>
+
+
+
+
+        <div id="gameInfo" style="display: none;">
+            <div id="combo">Combo: 0</div>
+            <div id="level">Level: 1</div>
+            <div id="score">Score: 0</div>
+            <div id="highscore">Highscore: 0</div>
+            <div id="maiorCombo">Maior combo: 0</div>
+            
+            <img src="Fotinhas/reiniciar_0.png" id="restartButton" style="display: none;">
+
+        </div>
+        <img src="Fotinhas/voltar_0.png" id="backToMenuGame" style="display: none;">
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

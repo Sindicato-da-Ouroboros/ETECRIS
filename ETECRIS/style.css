@@ -1,0 +1,208 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    height: 100vh;
+    margin: 0;
+    background-image: url("Fotinhas/Fundinho.jpg");
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.main-container {
+    text-align: center;
+    
+}
+
+#gameTitle {
+    width: 220px;
+    margin-top: 10px auto;
+}
+
+.game-container {
+    border: 2px solid #fff;
+    display: inline-block;
+    position: relative; ;
+}
+
+.list-container {
+    border: 2px solid #fff;
+    display: inline-block;
+    position: relative; ;
+}
+
+canvas {
+    background-color: #000;
+}
+
+#gameInfo {
+    margin-top: 10px;
+    color: #fff;
+}
+
+
+
+#restartButton {
+    margin-top: 10px;
+    margin: 10px auto;
+    padding: 8px 17px;
+    width: 200px;
+}
+
+#restartButton:hover {
+    content: url("Fotinhas/reiniciar_1.png");
+}
+
+#startButton {
+    width: 220px;      
+    margin: 20px auto;    
+    cursor: pointer;
+    transition: 0.15s;
+    margin-top: 20px;
+}
+
+#startButton:hover {
+    content: url("botoes/iniciar_1.png");
+    transform: scale(1.05);   
+}
+
+
+ /* #sideContainer {
+    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+
+} */
+
+/*#nextCanvas, #holdCanvas {
+    border: 2px solid #fff;
+    background-color: #000;
+} */
+
+#creditsButton {
+    width: 200px;
+    object-fit: cover;
+}
+
+#creditsButton:hover {
+    content: url("botoes/creditos_1.png");
+    transform: scale(1.05); 
+}
+
+#creditsScreen {
+    margin-top: 20px;
+}
+
+#backToMenu {
+    margin-top: 10px;
+    margin: 10px auto;
+    padding: 8px 17px;
+    width: 200px;
+}
+
+#backToMenu:hover {
+    content: url("Fotinhas/voltar_1.png");
+}
+
+
+
+
+#backToMenuGame {
+    margin-top: 10px;
+    margin: 10px auto;
+    padding: 8px 17px;
+    width: 200px;
+    
+}
+
+#backToMenuGame:hover {
+    content: url("Fotinhas/voltar_1.png");
+}
+
+
+.left-wrapper {
+    display: flex;
+    justify-content: center; 
+    align-items: flex-start;
+    gap: 40px;
+    width: 100%;
+}
+
+#side-img {
+    width: 150px;
+}
+
+
+.side-container {
+    display: flex;          
+    flex-direction: column;
+    gap: 20px;
+    margin-right: 20px;
+}
+
+
+
+.side-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid white;
+    
+}
+
+.side-title {
+    font-size: 16px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+#creditsGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 colunas */
+    gap: 20px;
+    justify-items: center;
+    margin-bottom: 25px;
+}
+
+.credit-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.credit-item:hover {
+    transform: scale(1.3);
+}
+
+
+.credit-item img {
+    width: 70px;
+    height: 90px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 2px solid white;
+    margin-bottom: 8px;
+}
+
+#menuButtons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+#levelBoostButton {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 300px;          /* ajuste o tamanho */
+    height: auto;
+    cursor: pointer;
+    z-index: 9999;
+    transition: transform 0.15s;
+}
+
+#levelBoostButton:hover {
+    content: url("Fotinhas/esqueletofoda.gif");
+    transform: scale(1.12);
+}
