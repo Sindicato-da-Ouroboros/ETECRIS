@@ -206,3 +206,132 @@ canvas {
     content: url("Fotinhas/esqueletofoda.gif");
     transform: scale(1.12);
 }
+
+/* ================= RANKING ================= */
+#rankingButton {
+    width: 200px;
+    padding: 12px 0;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #fff;
+    background: #111;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.15s;
+}
+
+#rankingButton:hover {
+    background: #fff;
+    color: #000;
+    transform: scale(1.05);
+}
+
+#rankingScreen {
+    margin-top: 20px;
+}
+
+#backToMenuRanking {
+    margin: 10px auto;
+    padding: 8px 17px;
+    width: 200px;
+    cursor: pointer;
+}
+
+#backToMenuRanking:hover {
+    content: url("Fotinhas/voltar_1.png");
+}
+
+#rankingList,
+#gameRankingList {
+    list-style: none;
+    padding: 0;
+    margin: 12px auto;
+    width: 300px;
+    counter-reset: pos;
+    text-align: left;
+}
+
+#rankingList li,
+#gameRankingList li {
+    counter-increment: pos;
+    display: flex;
+    gap: 8px;
+    padding: 6px 10px;
+    margin-bottom: 6px;
+    background: rgba(0, 0, 0, 0.65);
+    border: 1px solid #fff;
+    border-radius: 8px;
+}
+
+#rankingList li::before,
+#gameRankingList li::before {
+    content: counter(pos) "º";
+    width: 32px;
+    font-weight: bold;
+}
+
+#rankingList li.empty::before,
+#gameRankingList li.empty::before {
+    content: "";
+    width: 0;
+}
+
+#rankingList li.me,
+#gameRankingList li.me {
+    border-color: gold;
+    color: gold;
+}
+
+.rk-name {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.rk-score {
+    font-weight: bold;
+}
+
+#submitBox {
+    margin: 10px auto;
+    padding: 10px;
+    width: 300px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid #fff;
+    border-radius: 10px;
+}
+
+#submitBox p {
+    margin: 6px 0;
+}
+
+#playerName {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 2px solid #fff;
+    background: #111;
+    color: #fff;
+}
+
+#submitScoreBtn {
+    margin-top: 8px;
+    padding: 8px 14px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    background: #fff;
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#submitScoreBtn:disabled {
+    opacity: 0.5;
+    cursor: default;
+}

@@ -1,0 +1,9 @@
+{
+  "name": "etecris",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ETECRIS - jogo de Tetris com ranking online",
+  "dependencies": {
+    "@upstash/redis": "^1.34.0"
+  }
+}

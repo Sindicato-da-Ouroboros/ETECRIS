@@ -16,6 +16,14 @@
         <div id="menuButtons">
             <img id="startButton" src="botoes/iniciar_0.png">
             <img id="creditsButton" src="botoes/creditos_0.png">
+            <button id="rankingButton" type="button">RANKING</button>
+        </div>
+
+        <div id="rankingScreen" style="display:none;">
+            <h2>Ranking</h2>
+            <ol id="rankingList"></ol>
+            <p id="rankingStatus"></p>
+            <img src="Fotinhas/voltar_0.png" id="backToMenuRanking">
         </div>
 
 
@@ -103,6 +111,14 @@
             <div id="score">Score: 0</div>
             <div id="highscore">Highscore: 0</div>
             <div id="maiorCombo">Maior combo: 0</div>
+
+            <div id="submitBox" style="display:none;">
+                <p id="submitTitle"></p>
+                <input id="playerName" type="text" maxlength="12" placeholder="Seu nome" autocomplete="off">
+                <button id="submitScoreBtn" type="button">Enviar pontuação</button>
+                <p id="submitStatus"></p>
+                <ol id="gameRankingList"></ol>
+            </div>
             
             <img src="Fotinhas/reiniciar_0.png" id="restartButton" style="display: none;">
 

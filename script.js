@@ -17,6 +17,7 @@ const sideContainer = document.getElementById('sideContainer')
 const gameInfo = document.getElementById('gameInfo');
 const title = document.getElementById('gameTitle');
 const backToMenuGame = document.getElementById("backToMenuGame");
+const rankingButton = document.getElementById("rankingButton");
 
 document.addEventListener("DOMContentLoaded", () => {
     audioMenu.load(); // prepara o áudio
@@ -82,6 +83,7 @@ creditsButton.addEventListener("click", () => {
 
     startButton.style.display = "none";
     creditsButton.style.display = "none";
+    rankingButton.style.display = "none";
     title.style.display = "none";
 
     creditsScreen.style.display = "block";
@@ -91,6 +93,7 @@ backToMenu.addEventListener("click", () => {
 
     startButton.style.display = "block";
     creditsButton.style.display = "block";
+    rankingButton.style.display = "block";
     title.style.display = "block";
     backToMenuGame.style.display = "none";
     audioMenu.currentTime = 0;
@@ -471,6 +474,7 @@ function moveDown() {
         musicGame.pause();
         musicCombo.pause();
         musicCombo.currentTime = 0;
+        showSubmitBox();
     }
 }
 
@@ -735,6 +739,7 @@ window.addEventListener("click", () => {
 backToMenuGame.addEventListener("click", () => {
     gameOver = true;
     inGame = false;
+    hideSubmitBox();
     clearTimeout(loopTimeout);
     clearTimeout(comboTimer);
     comboMusicActive = false;
@@ -746,6 +751,7 @@ backToMenuGame.addEventListener("click", () => {
     document.getElementById('restartButton').style.display = 'none';
     startButton.style.display = "block";
     creditsButton.style.display = "block";
+    rankingButton.style.display = "block";
     title.style.display = "block";
 
     audioGame1.pause();
@@ -761,6 +767,7 @@ startButton.addEventListener('click', () => {
     startButton.style.display = 'none';
     title.style.display = 'none';
     creditsButton.style.display = 'none';
+    rankingButton.style.display = 'none';
     gameContainer.style.display = 'inline-block';
     gameInfo.style.display = 'block';
     sideContainer.style.display = 'flex';
@@ -772,6 +779,7 @@ startButton.addEventListener('click', () => {
 });
 
 function startGame() {
+    hideSubmitBox();
     clearTimeout(loopTimeout);   // evita dois loops ao mesmo tempo
     clearTimeout(comboTimer);
     setLISTS();
@@ -810,3 +818,153 @@ function startGame() {
     gameOver = false;
     gameLoop();
 }
+
+
+// ================= RANKING ONLINE =================
+const API_URL = "/api/scores";
+
+const rankingScreen = document.getElementById("rankingScreen");
+const rankingList = document.getElementById("rankingList");
+const rankingStatus = document.getElementById("rankingStatus");
+const backToMenuRanking = document.getElementById("backToMenuRanking");
+
+const submitBox = document.getElementById("submitBox");
+const submitTitle = document.getElementById("submitTitle");
+const playerNameInput = document.getElementById("playerName");
+const submitScoreBtn = document.getElementById("submitScoreBtn");
+const submitStatus = document.getElementById("submitStatus");
+const gameRankingList = document.getElementById("gameRankingList");
+
+let finalScore = 0;
+let submitting = false;
+
+playerNameInput.value = localStorage.getItem("playerName") || "";
+
+function cleanPlayerName(raw) {
+    return raw.replace(/\s+/g, " ").trim().slice(0, 12);
+}
+
+async function fetchRanking() {
+    const r = await fetch(API_URL, { cache: "no-store" });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    const data = await r.json();
+    return data.top || [];
+}
+
+function renderRanking(listEl, entries, highlightName) {
+    listEl.innerHTML = "";
+    if (entries.length === 0) {
+        const li = document.createElement("li");
+        li.className = "empty";
+        li.textContent = "Ninguém no ranking ainda.";
+        listEl.appendChild(li);
+        return;
+    }
+    entries.forEach((e) => {
+        const li = document.createElement("li");
+        const nameSpan = document.createElement("span");
+        nameSpan.className = "rk-name";
+        nameSpan.textContent = e.name;          // textContent: nunca interpreta HTML
+        const scoreSpan = document.createElement("span");
+        scoreSpan.className = "rk-score";
+        scoreSpan.textContent = Number(e.score).toLocaleString("pt-BR");
+        li.appendChild(nameSpan);
+        li.appendChild(scoreSpan);
+        if (highlightName && e.name === highlightName) li.classList.add("me");
+        listEl.appendChild(li);
+    });
+}
+
+// ----- tela de ranking no menu -----
+async function loadRankingScreen() {
+    rankingStatus.textContent = "Carregando...";
+    rankingList.innerHTML = "";
+    try {
+        renderRanking(rankingList, await fetchRanking(), cleanPlayerName(playerNameInput.value));
+        rankingStatus.textContent = "";
+    } catch (e) {
+        rankingStatus.textContent = "Não foi possível carregar o ranking agora.";
+    }
+}
+
+rankingButton.addEventListener("click", () => {
+    startButton.style.display = "none";
+    creditsButton.style.display = "none";
+    rankingButton.style.display = "none";
+    title.style.display = "none";
+    rankingScreen.style.display = "block";
+    loadRankingScreen();
+});
+
+backToMenuRanking.addEventListener("click", () => {
+    rankingScreen.style.display = "none";
+    startButton.style.display = "block";
+    creditsButton.style.display = "block";
+    rankingButton.style.display = "block";
+    title.style.display = "block";
+});
+
+// ----- envio da pontuação no fim do jogo -----
+function showSubmitBox() {
+    if (score <= 0) return;
+    finalScore = score;
+    submitTitle.textContent = `Fim de jogo! Score: ${finalScore.toLocaleString("pt-BR")}`;
+    submitStatus.textContent = "";
+    gameRankingList.innerHTML = "";
+    playerNameInput.disabled = false;
+    submitScoreBtn.disabled = false;
+    submitBox.style.display = "block";
+}
+
+function hideSubmitBox() {
+    submitBox.style.display = "none";
+}
+
+async function submitScore() {
+    if (submitting) return;
+    const name = cleanPlayerName(playerNameInput.value);
+    if (!name) {
+        submitStatus.textContent = "Digite seu nome.";
+        return;
+    }
+
+    submitting = true;
+    submitScoreBtn.disabled = true;
+    submitStatus.textContent = "Enviando...";
+    localStorage.setItem("playerName", name);
+
+    let sent = false;
+    try {
+        const r = await fetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, score: finalScore })
+        });
+        const data = await r.json().catch(() => ({}));
+        if (!r.ok) throw new Error(data.error || "HTTP " + r.status);
+
+        sent = true;
+        playerNameInput.disabled = true;
+        if (data.improved) {
+            submitStatus.textContent = data.rank ? `Enviado! Você está em ${data.rank}º lugar.` : "Enviado!";
+        } else {
+            submitStatus.textContent = `Seu recorde com esse nome continua ${Number(data.best).toLocaleString("pt-BR")}.`;
+        }
+    } catch (e) {
+        submitStatus.textContent = "Não foi possível enviar: " + e.message;
+        submitScoreBtn.disabled = false;
+    } finally {
+        submitting = false;
+    }
+
+    if (sent) {
+        try {
+            renderRanking(gameRankingList, await fetchRanking(), name);
+        } catch (e) { /* o envio deu certo; só a lista não carregou */ }
+    }
+}
+
+submitScoreBtn.addEventListener("click", submitScore);
+playerNameInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") submitScore();
+});
